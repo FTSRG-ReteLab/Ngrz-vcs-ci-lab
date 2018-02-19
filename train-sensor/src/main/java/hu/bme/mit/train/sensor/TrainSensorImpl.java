@@ -22,7 +22,7 @@ public class TrainSensorImpl implements TrainSensor {
 
 	@Override
 	public void overrideSpeedLimit(int speedLimit) {
-		this.speedLimit = speedLimit * 15;
+		this.speedLimit = speedLimit * 4;
 		controller.setSpeedLimit(speedLimit);
 	}
 
