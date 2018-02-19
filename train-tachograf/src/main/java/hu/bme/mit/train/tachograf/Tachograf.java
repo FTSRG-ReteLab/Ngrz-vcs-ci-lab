@@ -6,6 +6,6 @@ import java.util.Date;
 
 public class Tachograf {
 
-    Table<Date, Double, Integer> TachografValues;
+   public Table<Date, Double, Integer> TachografValues;
 
 }
