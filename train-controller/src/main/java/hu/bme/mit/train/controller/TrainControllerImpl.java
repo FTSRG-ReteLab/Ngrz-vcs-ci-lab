@@ -10,17 +10,25 @@ public class TrainControllerImpl implements TrainController {
 
 	@Override
 	public void followSpeed() {
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		if (referenceSpeed < 0) {
 			referenceSpeed = 0;
 		} else {
 		    if(referenceSpeed+step > 0) {
                 referenceSpeed += step;
             } else {
-		        referenceSpeed = 0;
+		    	if(referenceSpeed != 0 && step<0)
+				{ referenceSpeed -= step;}
+
             }
 		}
 
 		enforceSpeedLimit();
+
 	}
 
 	@Override
