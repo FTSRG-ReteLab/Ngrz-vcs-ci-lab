@@ -2,6 +2,8 @@ package hu.bme.mit.train.controller;
 
 import hu.bme.mit.train.interfaces.TrainController;
 
+import java.util.Timer;
+
 public class TrainControllerImpl implements TrainController {
 
 	private int step = 0;
@@ -18,7 +20,7 @@ public class TrainControllerImpl implements TrainController {
 		if (referenceSpeed < 0) {
 			referenceSpeed = 0;
 		} else {
-		    if(referenceSpeed+step > 0) {
+		    if(referenceSpeed + step > 0) {
                 referenceSpeed += step;
             } else {
 		    	if(referenceSpeed != 0 && step<0)
@@ -27,6 +29,11 @@ public class TrainControllerImpl implements TrainController {
             }
 		}
 
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		enforceSpeedLimit();
 
 	}
