@@ -1,8 +1,8 @@
 package hu.bme.mit.train.sensor;
 
-import hu.bme.mit.train.controller.TrainControllerImpl;
+
 import hu.bme.mit.train.interfaces.TrainController;
-import hu.bme.mit.train.user.TrainUserImpl;
+import hu.bme.mit.train.interfaces.TrainUser;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,18 +13,18 @@ public class TrainSensorTest {
     int tri;
     private int SpeedLimit;
     private TrainSensorImpl sensor;
-    private TrainUserImpl user;
-    private TrainControllerImpl controller;
+    private TrainUser user;
+    private TrainController controller;
 
     @Before
     public void before() {
         tri = 1;
 
 
-        controller = mock(TrainControllerImpl.class);
-        user= new TrainUserImpl(controller);
+        controller = mock(TrainController.class);
+        user= mock(TrainUser.class);
         sensor = new TrainSensorImpl(controller, user);
-        controller.setReferenceSpeed(15);
+
         controller.setSpeedLimit(20);
 
 
@@ -38,15 +38,18 @@ public class TrainSensorTest {
     @Test
     public void OverrideSpeedLimit_AbsMarginOver_OK(){
 
-        sensor.overrideSpeedLimit(501);
-        Assert.assertEquals(true, user.getAlarmState());
+
+               sensor.overrideSpeedLimit(501);
+               verify(user, times(1)).setAlarmFlag(true);
+       // Assert.assertEquals(true, user.getAlarmState());
     }
 
     @Test
     public void OverrideSpeedLimit_AbsMarginNegative_OK(){
 
         sensor.overrideSpeedLimit(-23);
-        Assert.assertEquals(true, user.getAlarmState());
+        verify(user, times(2)).setAlarmFlag(true);
+       // Assert.assertEquals(true, user.getAlarmState());
     }
     @Test
     public void OverrideSpeedLimit_RelativeMarginOutBoundary_OK(){
@@ -61,11 +64,11 @@ public class TrainSensorTest {
         sensor.overrideSpeedLimit(10);
         Assert.assertEquals(false, user.getAlarmState());
     }
-
+/*
     public void OverrideSpeedLimit_MockTest_OK(){
-        when(controller.setReferenceSpeed(15)).thenReturn(controller.getReferenceSpeed());
+        when(controller.getRefer
 
-    }
+    }*/
 
 
 
