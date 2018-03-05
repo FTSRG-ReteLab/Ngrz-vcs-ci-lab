@@ -33,26 +33,26 @@ public class TrainSensorTest {
     }
 
     @Test
-    public void Test1(){
+    public void OverrideSpeedLimit_AbsMarginOver_OK(){
 
         sensor.overrideSpeedLimit(501);
         Assert.assertEquals(true, user.getAlarmState());
     }
 
     @Test
-    public void Test2(){
+    public void OverrideSpeedLimit_AbsMarginNegative_OK(){
 
         sensor.overrideSpeedLimit(-23);
         Assert.assertEquals(true, user.getAlarmState());
     }
     @Test
-    public void Test3(){
+    public void OverrideSpeedLimit_RelativeMarginOutBoundary_OK(){
 
         sensor.overrideSpeedLimit(5);
         Assert.assertEquals(true, user.getAlarmState());
     }
     @Test
-    public void Test4(){
+    public void OverrideSpeedLimit_RelativeMarginInsideBoundary_OK(){
 
         sensor.overrideSpeedLimit(10);
         Assert.assertEquals(false, user.getAlarmState());
