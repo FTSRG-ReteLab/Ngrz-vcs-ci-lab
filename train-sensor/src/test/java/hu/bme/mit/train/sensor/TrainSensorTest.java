@@ -19,11 +19,14 @@ public class TrainSensorTest {
     @Before
     public void before() {
         tri = 1;
-        controller = new TrainControllerImpl();
+
+
+        controller = mock(TrainControllerImpl.class);
         user= new TrainUserImpl(controller);
         sensor = new TrainSensorImpl(controller, user);
         controller.setReferenceSpeed(15);
         controller.setSpeedLimit(20);
+
 
     }
 
@@ -49,13 +52,19 @@ public class TrainSensorTest {
     public void OverrideSpeedLimit_RelativeMarginOutBoundary_OK(){
 
         sensor.overrideSpeedLimit(5);
-        Assert.assertEquals(true, user.getAlarmState());
+        Assert.assertEquals(false, user.getAlarmState());
     }
+
     @Test
     public void OverrideSpeedLimit_RelativeMarginInsideBoundary_OK(){
 
         sensor.overrideSpeedLimit(10);
         Assert.assertEquals(false, user.getAlarmState());
+    }
+
+    public void OverrideSpeedLimit_MockTest_OK(){
+        when(controller.setReferenceSpeed(15)).thenReturn(controller.getReferenceSpeed());
+
     }
 
 

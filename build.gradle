@@ -8,10 +8,7 @@ subprojects { subproject ->
 
 
 
-  repositories {
-    jcenter()
-  }
-
-  
+  repositories { jcenter() }
+  dependencies { testCompile "org.mockito:mockito-core:2.+" }
  
 }
